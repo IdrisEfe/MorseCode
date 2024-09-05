@@ -81,7 +81,7 @@ class morseCode:
             
 
     def start(self):
-        self.choice = input("Encode a text or decode a morse code? \n(T = encode a text) \n(M = decode a morse code) \n(/kill to stop running the file)").strip()
+        self.choice = input("Encode a text or decode a morse code? \n(T = encode a text) \n(M = decode a morse code) \n(/kill to stop running the file) ").strip()
         if self.choice == "/kill":
             sys.exit()
         elif(self.choice.upper() == 'T'):
