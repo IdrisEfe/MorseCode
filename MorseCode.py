@@ -26,13 +26,24 @@ class morseCode:
     ';': '_._._.', '=': '_..._', '+': '._._.', '-': '_...._', '_': '..__._',
     '"': '._.._.', '$': '..._.._', '@': '.__._.', ' ': '/ '
 }
+    
+    turkish_to_english = {
+        'Ç': 'C', 'Ğ': 'G', 'İ': 'I', 'Ö': 'O', 'Ş': 'S', 'Ü': 'U',
+        'ç': 'c', 'ğ': 'g', 'ı': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u'
+    }
 
-
+    def preprocess_text(self, text):
+        for turkish_char, english_char in self.turkish_to_english.items():
+            text = text.replace(turkish_char, english_char)
+        
+        return text
 
     def morse_code_decoding(self):
         self.text = input("Enter your morse code to decode: ").strip()
         if self.text == "/kill":
             sys.exit()
+        elif self.text.upper() == "C":
+            self.start()
         self.text = self.text.split()
         decoded_message = ""
         for index, pattern in enumerate(self.text):
@@ -53,7 +64,10 @@ class morseCode:
         self.text = input("Enter your text to encode: ").strip()
         if self.text == "/kill":
             sys.exit()
+        elif self.text.upper() == "C":
+            self.start()
         self.text = self.text.upper()
+        self.text = self.preprocess_text(self.text)
         encoded_message = ""
         for i in range(len(self.text)):
             if self.text[i] in self.dataset1:
@@ -67,15 +81,17 @@ class morseCode:
             
 
     def start(self):
-        self.choice = input("Encode a text or decode a morse code? \n(T = encode a text) \n(M = decode a morse code) \n(/kill to stop running the file)")
+        self.choice = input("Encode a text or decode a morse code? \n(T = encode a text) \n(M = decode a morse code) \n(/kill to stop running the file)").strip()
         if self.choice == "/kill":
             sys.exit()
         elif(self.choice.upper() == 'T'):
-            print("You've decided to encode a text. (Q to quit, C to change the choice)")
+            print("You've decided to encode a text. (Q to quit, C to change the choice) ")
             k = ""
             while True:
-                k = input("Special command: ")
-                if k.upper() == "Q":
+                k = input("Special command: ").strip()
+                if k == "/kill":
+                    sys.exit()
+                elif k.upper() == "Q":
                     break
                 elif k.upper() == "C":
                     self.start()
@@ -83,11 +99,13 @@ class morseCode:
                     self.text_encoding()
 
         elif(self.choice.upper() == "M"):
-            print("You've decided to decode a morse code. (Q to quit, C to change the choice)")
+            print("You've decided to decode a morse code. (Q to quit, C to change the choice) ")
             k = ""
             while True:
-                k = input("Special command")
-                if k.upper() == "Q":
+                k = input("Special command: ").strip()
+                if k == "/kill":
+                    sys.exit()
+                elif k.upper() == "Q":
                     break
                 elif k.upper() == "C":
                     self.start()
