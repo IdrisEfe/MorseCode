@@ -42,8 +42,6 @@ class morseCode:
         self.text = input("Enter your morse code to decode: ").strip()
         if self.text == "/kill":
             sys.exit()
-        elif self.text.upper() == "C":
-            self.start()
         self.text = self.text.split()
         decoded_message = ""
         for index, pattern in enumerate(self.text):
@@ -64,8 +62,6 @@ class morseCode:
         self.text = input("Enter your text to encode: ").strip()
         if self.text == "/kill":
             sys.exit()
-        elif self.text.upper() == "C":
-            self.start()
         self.text = self.text.upper()
         self.text = self.preprocess_text(self.text)
         encoded_message = ""
